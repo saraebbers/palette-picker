@@ -20,7 +20,7 @@ app.locals.projects = [
         ]
       },
       {
-        id: 11,
+        id: 12,
         name: 'ooh its green',
         colors: [
           '#ACECA1', '#96BE8C', '#629460', '#E6E6E6', '#39393A'
@@ -29,18 +29,18 @@ app.locals.projects = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     name: 'Fall',
     palettes: [
       {
-        id: 11,
+        id: 21,
         name: 'Miami',
         colors: [
           '#F1E8B8', '#F9E784', '#E58F65', '#DO5353', '#191919'
         ]
       },
       {
-        id: 11,
+        id: 22,
         name: 'Sea Side',
         colors: [
           '#157F1F', '#4CB963', '#AOEADE', '#5C6784', '#1D263B'
@@ -51,10 +51,25 @@ app.locals.projects = [
 ]
 //storage of data in a variable given to us by express.  Populated with fake data
 
-app.get('/', (request, response) => {
-  response.send('Checking if it is connected correctly')
+app.get('/api/v1/projects', (request, response) => {
+  const projects = app.locals.projects
+  return response.json( { projects })
 });
+//this route handler returns all the projects in json
 // this is the route handler, app.get creates a route handler specifically listening for GET requests.  The first arguement is the route path. The second argument is a callback that take a request object and a response object.  The request object contains info about the request (such as headers, query parameters, and body) the response object contains info that my server will send as a response back to the client.  It also has functions that enables my server to send back a response.  The response.sendfunction sends a response with content in the body of the response.  
+
+app.get('/api/v1/projects/:id', (request, response) => {
+  const id = parseInt(request.params.id)
+  const project = app.locals.projects.find(project => {
+    return project.id === id
+  })
+  if (project) {
+    response.status(200).json( { project })
+  } else {
+    response.sendStatus(404)
+  }
+})
+//this route handler is dynamic, it returns a specific project based on its id
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
