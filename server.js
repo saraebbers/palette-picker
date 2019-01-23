@@ -7,6 +7,9 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 //this is a piece of middleware for express that lets us read the body of a call as json
 
+app.use(express.static('public'))
+// app.use configures the application to use a middleware function.  basically for every request to the server, always run the function passed into app.use.  The express.static(public) part defines the path to our static assets.  it defines the directory to where the static files are stored.  
+
 app.set('port', process.env.PORT || 3000)
 // if this was running on production, there would be an environment port set already, this says, use that or if that isn't set/undefined, use port 3000
 app.locals.title = 'Palette Picker';
@@ -54,6 +57,13 @@ app.locals.projects = [
   }
 ]
 //storage of data in a variable given to us by express.  Populated with fake data
+
+app.get('/', (request, response) => {
+  const options = {
+    root: 'public'
+  }
+  response.sendFile('index.html', options)
+})
 
 app.get('/api/v1/projects', (request, response) => {
   const projects = app.locals.projects
