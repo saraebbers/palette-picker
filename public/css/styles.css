@@ -11,7 +11,7 @@
   justify-items: center;
   align-items: center;
   padding: 1rem;
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   z-index: 10;
 }
@@ -29,8 +29,8 @@
   grid-column-gap: 1px;
   padding: 30px 5px;
   justify-content: stretch;
-  position: relative;
-  top: 100px;
+  /*position: relative;*/
+  /*top: 100px;*/
 }
 
 .palette {
@@ -50,6 +50,12 @@ button {
   height: 3rem;
   font-size: .75rem;
   background-color: lightgray;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: gray;
+  color: white;
 }
 
 .navigation-container {
@@ -62,10 +68,14 @@ button {
   justify-items: stretch;
   align-items: center;
   grid-gap: 20px;
+  /*position: relative;*/
+  /*top: 100px;*/
 }
 
 .projects-container {
   background-color: white;
   height: 25vh;
   padding: 10px;
+  /*position: relative;*/
+  /*top: 100px;*/
 }
