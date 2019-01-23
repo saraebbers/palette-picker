@@ -11,6 +11,9 @@
   justify-items: center;
   align-items: center;
   padding: 1rem;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
 }
 
 .title {
@@ -25,7 +28,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 1px;
   padding: 30px 5px;
-  justify-content: stretch
+  justify-content: stretch;
+  position: relative;
+  top: 100px;
 }
 
 .palette {
@@ -62,4 +67,5 @@ button {
 .projects-container {
   background-color: white;
   height: 25vh;
+  padding: 10px;
 }
