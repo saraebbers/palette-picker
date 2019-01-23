@@ -2,6 +2,10 @@ const express = require('express')
 // this requires the Express module that was installed with NPM
 const app = express()
 // this sets up or Express application, with the app I can configure and add functionality to my server
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
+//this is a piece of middleware for express that lets us read the body of a call as json
 
 app.set('port', process.env.PORT || 3000)
 // if this was running on production, there would be an environment port set already, this says, use that or if that isn't set/undefined, use port 3000
@@ -66,10 +70,27 @@ app.get('/api/v1/projects/:id', (request, response) => {
   if (project) {
     response.status(200).json( { project })
   } else {
-    response.sendStatus(404)
+    return response.status(404).send({
+      error: 'Project was not found, please try again with the correct information'
+    })
   }
 })
-//this route handler is dynamic, it returns a specific project based on its id
+//this route handler is dynamic, it returns a specific project based on its id-- status code 200 is okay, 404 means not found
+
+// app.post('/api/v1/projects', (request, response) => {
+//   const id = Date.now()
+//   const { project } = request.body
+
+//   if (!project) {
+//     return response.status(422).send({
+//       error: 'No project property was provided, please try again with the information required'
+//     })
+//   } else {
+//   app.locals.projects.push({...project, id})
+//   return response.status(201).json( { id, project })
+//   }
+// })
+//this route handler allows the user to create a new project with the correct info in the body-- status code 201 means created, 422 means unprocessable entity
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
