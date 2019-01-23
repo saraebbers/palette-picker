@@ -77,19 +77,19 @@ app.get('/api/v1/projects/:id', (request, response) => {
 })
 //this route handler is dynamic, it returns a specific project based on its id-- status code 200 is okay, 404 means not found
 
-// app.post('/api/v1/projects', (request, response) => {
-//   const id = Date.now()
-//   const { project } = request.body
+app.post('/api/v1/projects', (request, response) => {
+  const id = Date.now()
+  const project = request.body
 
-//   if (!project) {
-//     return response.status(422).send({
-//       error: 'No project property was provided, please try again with the information required'
-//     })
-//   } else {
-//   app.locals.projects.push({...project, id})
-//   return response.status(201).json( { id, project })
-//   }
-// })
+  if (!project) {
+    return response.status(422).send({
+      error: 'No project property was provided, please try again with the information required'
+    })
+  } else {
+  app.locals.projects.push({...project, id})
+  return response.status(201).json( { id })
+  }
+})
 //this route handler allows the user to create a new project with the correct info in the body-- status code 201 means created, 422 means unprocessable entity
 
 app.listen(app.get('port'), () => {
