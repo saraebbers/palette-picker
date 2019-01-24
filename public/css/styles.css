@@ -11,7 +11,6 @@
   justify-items: center;
   align-items: center;
   padding: 1rem;
-  /*position: absolute;*/
   width: 100%;
   z-index: 10;
 }
@@ -29,8 +28,6 @@
   grid-column-gap: 1px;
   padding: 30px 5px;
   justify-content: stretch;
-  /*position: relative;*/
-  /*top: 100px;*/
 }
 
 .palette {
@@ -43,6 +40,8 @@
   border: .25px solid black;
   padding: 5px;
   height: 300px;
+  display: grid;
+  align-items: end;
 }
 
 button {
@@ -58,6 +57,17 @@ button:hover {
   color: white;
 }
 
+.change-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.change-btn:hover {
+  background-color: transparent;
+  border: solid 1px black;
+}
+
 .navigation-container {
   background-color: black;
   height: 10vh;
@@ -68,14 +78,30 @@ button:hover {
   justify-items: stretch;
   align-items: center;
   grid-gap: 20px;
-  /*position: relative;*/
-  /*top: 100px;*/
 }
 
 .projects-container {
   background-color: white;
   height: 25vh;
   padding: 10px;
-  /*position: relative;*/
-  /*top: 100px;*/
+}
+
+.zero-color {
+  background-color: #E9D758;
+}
+
+.one-color {
+  background-color: #297373;
+}
+
+.two-color {
+  background-color: #FF8552;
+}
+
+.three-color {
+  background-color: #E6E6E6;
+}
+
+.four-color {
+  background-color: #39393A;
 }
