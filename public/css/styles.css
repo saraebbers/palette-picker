@@ -11,6 +11,8 @@
   justify-items: center;
   align-items: center;
   padding: 1rem;
+  width: 100%;
+  z-index: 10;
 }
 
 .title {
@@ -20,12 +22,12 @@
 
 .palette-sorter-container {
   background-color: white;
-  height: 50vh;
+  height: 40vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 1px;
   padding: 30px 5px;
-  justify-content: stretch
+  justify-content: stretch;
 }
 
 .palette {
@@ -38,6 +40,8 @@
   border: .25px solid black;
   padding: 5px;
   height: 300px;
+  display: grid;
+  align-items: end;
 }
 
 button {
@@ -45,6 +49,23 @@ button {
   height: 3rem;
   font-size: .75rem;
   background-color: lightgray;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: gray;
+  color: white;
+}
+
+.change-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.change-btn:hover {
+  background-color: transparent;
+  border: solid 1px black;
 }
 
 .navigation-container {
@@ -62,4 +83,5 @@ button {
 .projects-container {
   background-color: white;
   height: 25vh;
+  padding: 10px;
 }
