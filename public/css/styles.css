@@ -22,7 +22,7 @@
 
 .palette-sorter-container {
   background-color: white;
-  height: 50vh;
+  height: 40vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 1px;
@@ -84,24 +84,4 @@ button:hover {
   background-color: white;
   height: 25vh;
   padding: 10px;
-}
-
-.zero-color {
-  background-color: #E9D758;
-}
-
-.one-color {
-  background-color: #297373;
-}
-
-.two-color {
-  background-color: #FF8552;
-}
-
-.three-color {
-  background-color: #E6E6E6;
-}
-
-.four-color {
-  background-color: #39393A;
 }

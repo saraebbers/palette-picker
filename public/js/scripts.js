@@ -1,3 +1,4 @@
+
 const getRandomValue = (max) => {
     return Math.floor(Math.random() * Math.floor(max))
 }
@@ -13,9 +14,12 @@ const generateHexValue = () => {
 }
 
 const updateMultipleColors = () => {
-  $(".fa-lock-open").each(element => {
-    changeColor()
-  })
+    let unlockedColors = $(".fa-lock-open")
+    unlockedColors.each(item => {
+      const newHex = generateHexValue()
+      unlockedColors[item].parentNode.style = `background-color: ${newHex}`
+      unlockedColors[item].innerText = ` ${newHex}`
+    })
 }
  
 const toggleLock = () => {
@@ -27,27 +31,26 @@ const toggleLock = () => {
 }
 
 const changeColor = () => {
-  const newHex = generateHexValue()
-  $(event.target).parent().css({"background-color": `${newHex}`})
-  $(event.target).siblings().text(` ${newHex}`)
+  if($(event.target).siblings().hasClass('fa-lock-open')) {
+    const newHex = generateHexValue()
+    $(event.target).parent().css({"background-color": `${newHex}`})
+    $(event.target).siblings().text(` ${newHex}`)
+  }
 }
 
 $(".save-btn").on('click', () => {
   console.log('save-btn clicked')
 })
 
-$(".update-btn").on('click', () => {
-  console.log('update-btn clicked')
-  updateMultipleColors()
-
-})
+$(".update-btn").on('click', updateMultipleColors)
 
 $(".retrieve-btn").on('click', () => {
-  generateHexValue()
+  console.log('view saved Projects clicked')
 })
 
 $(".fas").on('click', toggleLock)
 
 $(".change-btn").on('click', changeColor)
 
+updateMultipleColors();
 
