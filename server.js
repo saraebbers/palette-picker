@@ -81,7 +81,7 @@ app.get('/api/v1/projects/:id', (request, response) => {
     response.status(200).json( { project })
   } else {
     return response.status(404).send({
-      error: 'Project was not found, please try again with the correct information'
+      error: `Project was not found with an id of ${id}, please try again with the correct information`
     })
   }
 })
