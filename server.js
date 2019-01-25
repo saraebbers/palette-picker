@@ -125,7 +125,6 @@ app.post('/api/v1/projects', (request, response) => {
         .send({ error: `Expected Format: { name: <string> }.  You are missing a "${requiredParameter}" property.`})
     }
   }
- 
  database('projects').insert(project, 'id')
   .then(project => {
     response.status(201).json({ id: project[0]})
@@ -145,7 +144,6 @@ app.post('/api/v1/palettes', (request, response) => {
         .send({ error: `Expected Format: { name: <string> }.  You are missing a "${requiredParameter}" property.`})
     }
   }
-
   database('palettes').insert(palette, 'id')
     .then(palette => {
       response.status(201).json({ id: palette[0]})
@@ -154,6 +152,18 @@ app.post('/api/v1/palettes', (request, response) => {
       response.status(500).json({error})
     })
 })
+
+// app.delete('/api/v1/projects/:id', (request, response) => {
+//   console.log('app.delete for projects')
+//   const id = parseInt(request.params.id)
+//   //delete associated palettes prior to project
+// })
+
+// app.delete('/api/v1/palettes/:id', (request, response) => {
+//   console.log('app.delete for palettes')
+// })
+
+
 
 // app.post('/api/v1/projects', (request, response) => {
 //   const id = Date.now()
