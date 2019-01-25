@@ -65,12 +65,7 @@ app.set('port', process.env.PORT || 3000)
 // ]
 //storage of data in a variable given to us by express.  Populated with fake data
 
-app.get('/', (request, response) => {
-  const options = {
-    root: 'public'
-  }
-  response.sendFile('index.html', options)
-})
+
 
 // app.get('/api/v1/projects', (request, response) => {
 //   const projects = app.locals.projects
