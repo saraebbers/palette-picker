@@ -104,17 +104,28 @@ app.get('/api/v1/projects', (request, response) => {
     });
 });
 
+app.get('/api/v1/palettes', (request, response) => {
+  database('palettes').select()
+    .then((palettes) => {
+      response.status(200).json(palettes);
+    })
+    .catch((error) => {
+      response.status(500).json( { error });
+    });
+});
+
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
-  //switch this back to post required param...
 
- if(!project.name) {
-  return response
-  .status(422).send({
-      error: `No name property was provided, please try again with the information required. Error ${error}`
-    })
- } 
+  for(let requiredParameter of ['name']) {
+    if (!project[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected Format: { name: <string> }.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+ 
  database('projects').insert(project, 'id')
   .then(project => {
     response.status(201).json({ id: project[0]})
@@ -122,6 +133,26 @@ app.post('/api/v1/projects', (request, response) => {
   .catch(error => {
     response.status(500).json({error})
   })
+})
+
+app.post('/api/v1/palettes', (request, response) => {
+  const palette = request.body;
+
+  for(let requiredParameter of ['name', 'color_zero', 'color_one', 'color_two', 'color_three', 'color_four']) {
+    if(!palette[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected Format: { name: <string> }.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+
+  database('palettes').insert(palette, 'id')
+    .then(palette => {
+      response.status(201).json({ id: palette[0]})
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    })
 })
 
 // app.post('/api/v1/projects', (request, response) => {
