@@ -38,6 +38,14 @@ const changeColor = () => {
   }
 }
 
+const getProjects = async() => {
+  const response = await fetch('/api/v1/projects')
+  const result = await response.json()
+  result.forEach(project => {
+    addProjectAsOption(project)
+  })
+}
+
 const addProject = async() => {
   event.preventDefault()
   const name = document.querySelector('.project-name')
@@ -53,7 +61,7 @@ const addProject = async() => {
 
 const addProjectAsOption = (project) => {
   const selection = document.querySelector('.project-select')
-  selection.insertAdjacentHTML('beforeend', `<option value=${project.id}>$project.name}</option>`)
+  selection.insertAdjacentHTML('afterbegin', `<option value=${project.id}>${project.name}</option>`)
 }
 
 const addPalette = () => {
@@ -81,4 +89,5 @@ $(".fas").on('click', toggleLock)
 $(".change-btn").on('click', changeColor)
 
 updateMultipleColors();
+getProjects();
 
