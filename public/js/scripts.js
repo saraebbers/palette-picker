@@ -40,15 +40,20 @@ const changeColor = () => {
 
 const addProject = async() => {
   event.preventDefault()
-  const name = document.querySelector('.project-name').value
+  const name = document.querySelector('.project-name')
   const response = await fetch('/api/v1/projects', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({ name: name })
+    body: JSON.stringify({ name: name.value })
   })
   const result = await response.json()
   console.log(result)
   name.value = ''
+}
+
+const addProjectAsOption = (project) => {
+  const selection = document.querySelector('.project-select')
+  selection.insertAdjacentHTML('beforeend', `<option value=${project.id}>$project.name}</option>`)
 }
 
 const addPalette = () => {
