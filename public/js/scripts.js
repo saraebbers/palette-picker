@@ -43,6 +43,7 @@ const getProjects = async() => {
   const result = await response.json()
   result.forEach(project => {
     addProjectAsOption(project)
+    addProjectToPage(project)
   })
 }
 
@@ -56,7 +57,19 @@ const addProject = async() => {
   })
   const result = await response.json()
   console.log(result)
+  addProjectAsOption(result)
+  addProjectToPage(result)
   name.value = ''
+}
+
+const addProjectToPage = (project) => {
+  const projects = document.querySelector('.projects-container')
+  projects.insertAdjacentHTML('beforeend', `
+    <div>
+      <p value=${project.id}>${project.name}</p>
+      <div>add associated palettes here</div>
+    </div>
+    `)
 }
 
 const addProjectAsOption = (project) => {
@@ -72,7 +85,6 @@ const addPalette = () => {
 $(".project-btn").on('click', addProject)
 
 $(".palette-btn").on('click', addPalette)
-
 
 $(".save-btn").on('click', () => {
   console.log('save-btn clicked')
