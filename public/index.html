@@ -46,6 +46,37 @@
       <button class="nav-btn update-btn">Update All Unlocked Colors</button>
       <button class="nav-btn retrieve-btn">View Saved Projects</button>
     </section>
+    <section>
+
+      <form class="project-form">
+        <div>
+          <label for="name">Project Name: </label>
+          <input class="project-name" name="name" type="text" placeholder="Project Name">
+        </div>
+        <div>
+          <button class="project-btn">Save Your Project</button>
+        </div>
+      </form>
+
+
+      <form>
+        <div class="project-form">
+          <label for="name">Palette Name: </label>
+          <input class="palette-input" id="name" name="name" type="text" placeholder="Palette Name">
+        </div>
+        <div>
+          <label for="project">Select the Project the paletts should be saved to: 
+          </label>
+          <select>
+            <option value="render projects here">use new project name</option>
+          </select>
+        </div>
+        <div>
+          <button>Save Your Palette</button>
+        </div>
+      </form>
+
+    </section>
     <section class="projects-container">
       this is where info added from the array that populates new html will live.
     </section>
