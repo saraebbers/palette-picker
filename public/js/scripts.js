@@ -65,8 +65,10 @@ const addProject = async() => {
 const addProjectToPage = (project) => {
   const projects = document.querySelector('.projects-container')
   projects.insertAdjacentHTML('beforeend', `
-    <div>
-      <p value=${project.id}>${project.name}</p>
+    <div class='project-div'>
+      <p value=${project.id}>${project.name} 
+        <i class="fa-trash-alt project-trash"></i>
+      </p>
       <div>add associated palettes here</div>
     </div>
     `)
@@ -77,12 +79,23 @@ const addProjectAsOption = (project) => {
   selection.insertAdjacentHTML('afterbegin', `<option value=${project.id}>${project.name}</option>`)
 }
 
+const deleteProject = async(id) => {
+  const project = document.querySelector('.project-div')
+  const response = await fetch('/api/v1/projects', {
+    method: 'DELETE'
+  })
+  const result = await response.json()
+  console.log(result)
+}
+
 const addPalette = () => {
   event.preventDefault()
   console.log('add Palette Called')
 }
 
 $(".project-btn").on('click', addProject)
+
+$(".project-trash").on('click', deleteProject)
 
 $(".palette-btn").on('click', addPalette)
 
