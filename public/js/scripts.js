@@ -64,6 +64,7 @@ const addProject = async() => {
 
 const addProjectToPage = (project) => {
   const projects = document.querySelector('.projects-container')
+  getPalettes(project)
   projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
     )
 }
@@ -102,7 +103,7 @@ const savePalette = async() => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      name: name.value,
+      name: name,
       project_id: project.value,
       color_zero: colorPalette[0],
       color_one: colorPalette[1],
@@ -116,6 +117,7 @@ const savePalette = async() => {
 }
 
 const getPalettes = async(project) => {
+  console.log(project)
   const response = await fetch(`/api/v1/projects/${project.id}/palettes`)
   const result = await response.json()
   console.log(result)

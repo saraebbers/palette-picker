@@ -72,7 +72,7 @@ button:hover {
   background-color: black;
   height: 10vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 10px;
   justify-content: center;
   justify-items: stretch;
