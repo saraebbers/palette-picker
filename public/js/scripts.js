@@ -56,6 +56,7 @@ const addProject = async() => {
     body: JSON.stringify({ name: name.value })
   })
   const result = await response.json()
+  console.log(result)
   addProjectAsOption(result)
   addProjectToPage(result)
   name.value = ''
@@ -110,6 +111,12 @@ const savePalette = async() => {
       color_four: colorPalette[4],
     })
   })
+  const result = await response.json()
+  console.log(result)
+}
+
+const getPalettes = async(project) => {
+  const response = await fetch(`/api/v1/projects/${project.id}/palettes`)
   const result = await response.json()
   console.log(result)
 }
