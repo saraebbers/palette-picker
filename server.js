@@ -78,11 +78,16 @@ app.post('/api/v1/palettes', (request, response) => {
     })
 })
 
-// app.delete('/api/v1/projects/:id', (request, response) => {
-//   console.log('app.delete for projects')
-//   const id = parseInt(request.params.id)
-//   //delete associated palettes prior to project
-// })
+app.delete('/api/v1/projects/:id', (request, response) => {
+  //delete associated palettes prior to project
+  database('projects').where('id', request.params.id).del()
+  .then(project => {
+    response.status(200).json(`Project ${project[0]} was deleted`)
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
+})
 
 // app.delete('/api/v1/palettes/:id', (request, response) => {
 //   console.log('app.delete for palettes')

@@ -56,7 +56,6 @@ const addProject = async() => {
     body: JSON.stringify({ name: name.value })
   })
   const result = await response.json()
-  console.log(result)
   addProjectAsOption(result)
   addProjectToPage(result)
   name.value = ''
@@ -64,24 +63,20 @@ const addProject = async() => {
 
 const addProjectToPage = (project) => {
   const projects = document.querySelector('.projects-container')
-  projects.insertAdjacentHTML('beforeend', `
-    <div class='project-div'>
-      <p value=${project.id}>${project.name} 
-        <i class="fa-trash-alt project-trash"></i>
-      </p>
-      <div>add associated palettes here</div>
-    </div>
-    `)
+  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name}<i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
+    )
 }
 
 const addProjectAsOption = (project) => {
-  const selection = document.querySelector('.project-select')
+  const selection = document.querySelector(".project-select")
   selection.insertAdjacentHTML('afterbegin', `<option value=${project.id}>${project.name}</option>`)
 }
 
-const deleteProject = async(id) => {
-  const project = document.querySelector('.project-div')
-  const response = await fetch('/api/v1/projects', {
+const deleteProject = async() => {
+  const project = document.querySelector('.projects-container')
+  let id = event.target.parentNode.id
+  console.log(id)
+  const response = await fetch(`/api/v1/projects/${id}`, {
     method: 'DELETE'
   })
   const result = await response.json()
@@ -95,7 +90,7 @@ const addPalette = () => {
 
 $(".project-btn").on('click', addProject)
 
-$(".project-trash").on('click', deleteProject)
+$(".projects-container").on('click', deleteProject)
 
 $(".palette-btn").on('click', addPalette)
 
@@ -105,14 +100,11 @@ $(".save-btn").on('click', () => {
 
 $(".update-btn").on('click', updateMultipleColors)
 
-$(".retrieve-btn").on('click', () => {
-  console.log('view saved Projects clicked')
-})
+$(".retrieve-btn").on('click', getProjects)
 
 $(".fas").on('click', toggleLock)
 
 $(".change-btn").on('click', changeColor)
 
 updateMultipleColors();
-getProjects();
 
