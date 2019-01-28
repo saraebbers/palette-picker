@@ -86,9 +86,15 @@ app.delete('/api/v1/projects/:id', (request, response) => {
   })
 })
 
-// app.delete('/api/v1/palettes/:id', (request, response) => {
-//   console.log('app.delete for palettes')
-// })
+app.delete('/api/v1/projects/:id/palettes/:id', (request, response) => {
+  database('palettes').where('id', request.params.id).del()
+  .then(palette => {
+     response.status(200).json(`Palette ${palette[0]} was deleted`)
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
+})
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);

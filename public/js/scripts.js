@@ -66,7 +66,7 @@ const addProjectToPage = async(project) => {
   let palettes = await getPalettes(project)
   let paletteDisplay = paletteData(palettes).join('')
   const projects = document.querySelector('.projects-container')
-  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>${paletteDisplay}</div></div>`
+  projects.insertAdjacentHTML('beforeend', `<div id="${project.id}" class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>${paletteDisplay}</div></div>`
     )
 }
 
@@ -74,7 +74,7 @@ const paletteData = (palettes) => {
   let paletteDisplay = []
   palettes.forEach(palette => {
     let paletteHTML = `
-    <div>Palette Name: ${palette.name}
+    <div id='${palette.id}'>Palette Name: ${palette.name}
       <div class="small-box" style="background-color:${palette.color_zero}">
         ${palette.color_zero}
       </div>
@@ -96,6 +96,20 @@ const paletteData = (palettes) => {
     paletteDisplay.push(paletteHTML)
   })
   return paletteDisplay
+}
+
+const deletePalette = async() => {
+  const palette = document.querySelector('.projects-container')
+  let project_id = event.target.parentNode.parentNode.parentNode.id
+  console.log(project_id)
+  let id = event.target.parentNode.id
+  console.log(id)
+  event.target.parentNode.remove()
+  const response = await fetch(`/api/v1/projects/${project_id}/palettes/${id}`, {
+    method: 'DELETE'
+  })
+  const result = await response.json()
+  console.log(result)
 }
 
 const addProjectAsOption = (project) => {
@@ -153,7 +167,7 @@ const getPalettes = async(project) => {
 
 $(".project-btn").on('click', addProject)
 
-$(".projects-container").on('click', deleteProject)
+$(".projects-container").on('click', deletePalette)
 
 $(".palette-btn").on('click', savePalette)
 
