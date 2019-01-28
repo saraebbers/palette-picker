@@ -65,7 +65,7 @@ const addProject = async() => {
 const addProjectToPage = async(project) => {
   let palettes = await getPalettes(project)
   let paletteDisplay = paletteData(palettes).join('')
-  const projects = document.querySelector('.projects-container')
+  const projects = document.querySelector('.projects-here')
   projects.insertAdjacentHTML('beforeend', `<div id="${project.id}" class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>${paletteDisplay}</div></div>`
     )
 }
@@ -90,7 +90,7 @@ const paletteData = (palettes) => {
       <div class="small-box" style="background-color:${palette.color_four}">
         ${palette.color_four}
       </div>
-      <i class="fas fa-trash"></i>
+      <i class="fas fa-trash palette-trash"></i>
     </div>`
 
     paletteDisplay.push(paletteHTML)
@@ -99,11 +99,11 @@ const paletteData = (palettes) => {
 }
 
 const deletePalette = async() => {
+  console.log('deletePalette called')
   const palette = document.querySelector('.projects-container')
   let project_id = event.target.parentNode.parentNode.parentNode.id
   console.log(project_id)
   let id = event.target.parentNode.id
-  console.log(id)
   event.target.parentNode.remove()
   const response = await fetch(`/api/v1/projects/${project_id}/palettes/${id}`, {
     method: 'DELETE'
@@ -117,7 +117,18 @@ const addProjectAsOption = (project) => {
   selection.insertAdjacentHTML('afterbegin', `<option value=${project.id}>${project.name}</option>`)
 }
 
+const deleteSavedThings = (e) => {
+  console.log(event.target.className)
+  if ((e.target.className).includes('palette-trash')) {
+    deletePalette()
+  }
+  if ((e.target.className).includes("project-trash")) {
+    deleteProject()
+  }
+}
+
 const deleteProject = async() => {
+  console.log('deleteProject called')
   const project = document.querySelector('.projects-container')
   let id = event.target.parentNode.id
   event.target.parentNode.parentNode.remove()
@@ -167,7 +178,7 @@ const getPalettes = async(project) => {
 
 $(".project-btn").on('click', addProject)
 
-$(".projects-container").on('click', deletePalette)
+$(".projects-container").on('click', deleteSavedThings)
 
 $(".palette-btn").on('click', savePalette)
 
