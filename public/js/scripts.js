@@ -82,16 +82,27 @@ const deleteProject = async() => {
   const result = await response.json()
 }
 
-const addPalette = () => {
+const savePalette = () => {
   event.preventDefault()
-  console.log('add Palette Called')
+  let colorPalette = []
+  const colors = document.querySelectorAll(".box")
+  colors.forEach(color => {
+    let thisColor =''
+    let i = 1
+    while (thisColor.length < 7) {
+      thisColor = thisColor + color.innerText[i]
+      i++
+    }
+    colorPalette.push(thisColor)
+  })
+  return colorPalette
 }
 
 $(".project-btn").on('click', addProject)
 
 $(".projects-container").on('click', deleteProject)
 
-$(".palette-btn").on('click', addPalette)
+$(".palette-btn").on('click', savePalette)
 
 $(".save-btn").on('click', () => {
   console.log('save-btn clicked')
