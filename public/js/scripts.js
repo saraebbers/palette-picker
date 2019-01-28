@@ -62,11 +62,40 @@ const addProject = async() => {
   name.value = ''
 }
 
-const addProjectToPage = (project) => {
+const addProjectToPage = async(project) => {
+  let palettes = await getPalettes(project)
+  let paletteDisplay = paletteData(palettes).join('')
   const projects = document.querySelector('.projects-container')
-  getPalettes(project)
-  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
+  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>${paletteDisplay}</div></div>`
     )
+}
+
+const paletteData = (palettes) => {
+  let paletteDisplay = []
+  palettes.forEach(palette => {
+    let paletteHTML = `
+    <div>Palette Name: ${palette.name}
+      <div class="small-box" style="background-color:${palette.color_zero}">
+        ${palette.color_zero}
+      </div>
+      <div class="small-box" style="background-color:${palette.color_one}">
+        ${palette.color_one}
+      </div>
+      <div class="small-box" style="background-color:${palette.color_two}">
+        ${palette.color_two}
+      </div>
+      <div class="small-box" style="background-color:${palette.color_three}">
+        ${palette.color_three}
+      </div>
+      <div class="small-box" style="background-color:${palette.color_four}">
+        ${palette.color_four}
+      </div>
+      <i class="fas fa-trash"></i>
+    </div>`
+
+    paletteDisplay.push(paletteHTML)
+  })
+  return paletteDisplay
 }
 
 const addProjectAsOption = (project) => {
@@ -117,10 +146,9 @@ const savePalette = async() => {
 }
 
 const getPalettes = async(project) => {
-  console.log(project)
   const response = await fetch(`/api/v1/projects/${project.id}/palettes`)
   const result = await response.json()
-  console.log(result)
+  return result
 }
 
 $(".project-btn").on('click', addProject)

@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+.small-box {
+  padding: 5px;
+  width: 70px;
+  display: inline-block;
+  margin: 5px;
+}
+
 .title-container {
   background-color: black;
   height: 10vh;
