@@ -4,7 +4,6 @@ const configuration = require('./knexfile')[environment];
 
 const database = require('knex')(configuration)
 
-
 const express = require('express')
 
 const app = express()
@@ -13,10 +12,8 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
 
-
 app.use(express.static('public'))
  
-
 app.set('port', process.env.PORT || 3000)
 
 app.get('/api/v1/projects', (request, response) => {
@@ -38,7 +35,6 @@ app.get('/api/v1/palettes', (request, response) => {
       response.status(500).json( { error });
     });
 });
-
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
@@ -62,7 +58,7 @@ app.post('/api/v1/projects', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
   const palette = request.body;
 
-  for(let requiredParameter of ['name', 'color_zero', 'color_one', 'color_two', 'color_three', 'color_four']) {
+  for(let requiredParameter of ['name', 'project_id', 'color_zero', 'color_one', 'color_two', 'color_three', 'color_four']) {
     if(!palette[requiredParameter]) {
       return response
         .status(422)
@@ -92,7 +88,6 @@ app.delete('/api/v1/projects/:id', (request, response) => {
 // app.delete('/api/v1/palettes/:id', (request, response) => {
 //   console.log('app.delete for palettes')
 // })
-
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);

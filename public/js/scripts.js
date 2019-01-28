@@ -63,7 +63,7 @@ const addProject = async() => {
 
 const addProjectToPage = (project) => {
   const projects = document.querySelector('.projects-container')
-  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name}<i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
+  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
     )
 }
 
@@ -82,16 +82,43 @@ const deleteProject = async() => {
   const result = await response.json()
 }
 
-const addPalette = () => {
+const savePalette = async() => {
   event.preventDefault()
-  console.log('add Palette Called')
+  const name = document.querySelector(".palette-input")
+  const project = document.querySelector("option")
+  let colorPalette = []
+  const colors = document.querySelectorAll(".box")
+  colors.forEach(color => {
+    let thisColor = ''
+    let i = 1
+    while (thisColor.length < 7) {
+      thisColor = thisColor + color.innerText[i]
+      i++
+    }
+    colorPalette.push(thisColor)
+  })
+  const response = await fetch('/api/v1/palettes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: name.value,
+      project_id: project.value,
+      color_zero: colorPalette[0],
+      color_one: colorPalette[1],
+      color_two: colorPalette[2],
+      color_three: colorPalette[3],
+      color_four: colorPalette[4],
+    })
+  })
+  const result = await response.json()
+  console.log(result)
 }
 
 $(".project-btn").on('click', addProject)
 
 $(".projects-container").on('click', deleteProject)
 
-$(".palette-btn").on('click', addPalette)
+$(".palette-btn").on('click', savePalette)
 
 $(".save-btn").on('click', () => {
   console.log('save-btn clicked')
