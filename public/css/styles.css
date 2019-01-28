@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+.small-box {
+  padding: 5px;
+  width: 70px;
+  display: inline-block;
+  margin: 5px;
+}
+
 .title-container {
   background-color: black;
   height: 10vh;
@@ -72,7 +79,7 @@ button:hover {
   background-color: black;
   height: 10vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   padding: 10px;
   justify-content: center;
   justify-items: stretch;

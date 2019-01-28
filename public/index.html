@@ -52,12 +52,12 @@
       </div>
     </section>
     <section class="navigation-container">
-      <button class="nav-btn save-btn">Save Palette</button>
       <button class="nav-btn update-btn">Update All Unlocked Colors</button>
       <button class="nav-btn retrieve-btn">View Saved Projects</button>
     </section>
     <section>
       <form>
+      <h2>Save Palette to a Project: Enter Palette Name and the Project it should be saved to below: </h2>
         <div class="project-form">
           <label for="name">Palette Name: </label>
           <input class="palette-input" id="name" name="name" type="text" placeholder="Palette Name">
@@ -66,6 +66,7 @@
           <label for="project">Select the Project the paletts should be saved to: 
           </label>
           <select class="project-select">
+            <option>--Click on View Saved Projects to populate this list--</option>
           </select>
         </div>
         <div>
@@ -75,6 +76,8 @@
     </section>
     <section class="projects-container">
       <h2>Current Projects</h2>
+        <div class='projects-here'>
+        </div>
     </section>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -26,15 +26,6 @@ app.get('/api/v1/projects', (request, response) => {
     });
 });
 
-app.get('/api/v1/palettes', (request, response) => {
-  database('palettes').select()
-    .then((palettes) => {
-      response.status(200).json(palettes);
-    })
-    .catch((error) => {
-      response.status(500).json( { error });
-    });
-});
 
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
@@ -54,6 +45,16 @@ app.post('/api/v1/projects', (request, response) => {
     response.status(500).json({error})
   })
 })
+
+app.get('/api/v1/projects/:id/palettes', (request, response) => {
+  database('palettes').where('project_id', request.params.id).select()
+    .then((palettes) => {
+      response.status(200).json(palettes);
+    })
+    .catch((error) => {
+      response.status(500).json( { error });
+    });
+});
 
 app.post('/api/v1/palettes', (request, response) => {
   const palette = request.body;
@@ -75,19 +76,28 @@ app.post('/api/v1/palettes', (request, response) => {
 })
 
 app.delete('/api/v1/projects/:id', (request, response) => {
+  database('palettes').where('project_id', request.params.id).del()
+  .then (() => {
+    database('projects').where('id', request.params.id).del()
+    .then(project => {
+      response.status(200).json(`Project ${project[0]} was deleted`)
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    })
+  })
   //delete associated palettes prior to project
-  database('projects').where('id', request.params.id).del()
-  .then(project => {
-    response.status(200).json(`Project ${project[0]} was deleted`)
+})
+
+app.delete('/api/v1/projects/:id/palettes/:id', (request, response) => {
+  database('palettes').where('id', request.params.id).del()
+  .then(palette => {
+     response.status(200).json(`Palette ${palette[0]} was deleted`)
   })
   .catch(error => {
     response.status(500).json({error})
   })
 })
-
-// app.delete('/api/v1/palettes/:id', (request, response) => {
-//   console.log('app.delete for palettes')
-// })
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
