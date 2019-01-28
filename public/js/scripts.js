@@ -63,7 +63,7 @@ const addProject = async() => {
 
 const addProjectToPage = (project) => {
   const projects = document.querySelector('.projects-container')
-  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name}<i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
+  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name} <i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
     )
 }
 
