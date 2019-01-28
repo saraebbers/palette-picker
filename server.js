@@ -76,14 +76,17 @@ app.post('/api/v1/palettes', (request, response) => {
 })
 
 app.delete('/api/v1/projects/:id', (request, response) => {
+  database('palettes').where('project_id', request.params.id).del()
+  .then (() => {
+    database('projects').where('id', request.params.id).del()
+    .then(project => {
+      response.status(200).json(`Project ${project[0]} was deleted`)
+    })
+    .catch(error => {
+      response.status(500).json({error})
+    })
+  })
   //delete associated palettes prior to project
-  database('projects').where('id', request.params.id).del()
-  .then(project => {
-    response.status(200).json(`Project ${project[0]} was deleted`)
-  })
-  .catch(error => {
-    response.status(500).json({error})
-  })
 })
 
 app.delete('/api/v1/projects/:id/palettes/:id', (request, response) => {
