@@ -75,12 +75,11 @@ const addProjectAsOption = (project) => {
 const deleteProject = async() => {
   const project = document.querySelector('.projects-container')
   let id = event.target.parentNode.id
-  console.log(id)
+  event.target.parentNode.parentNode.remove()
   const response = await fetch(`/api/v1/projects/${id}`, {
     method: 'DELETE'
   })
   const result = await response.json()
-  console.log(result)
 }
 
 const addPalette = () => {
