@@ -82,12 +82,14 @@ const deleteProject = async() => {
   const result = await response.json()
 }
 
-const savePalette = () => {
+const savePalette = async() => {
   event.preventDefault()
+  const name = document.querySelector(".palette-input")
+  const project = document.querySelector("option")
   let colorPalette = []
   const colors = document.querySelectorAll(".box")
   colors.forEach(color => {
-    let thisColor =''
+    let thisColor = ''
     let i = 1
     while (thisColor.length < 7) {
       thisColor = thisColor + color.innerText[i]
@@ -95,7 +97,21 @@ const savePalette = () => {
     }
     colorPalette.push(thisColor)
   })
-  return colorPalette
+  const response = await fetch('/api/v1/palettes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      name: name.value,
+      project_id: project.value,
+      color_zero: colorPalette[0],
+      color_one: colorPalette[1],
+      color_two: colorPalette[2],
+      color_three: colorPalette[3],
+      color_four: colorPalette[4],
+    })
+  })
+  const result = await response.json()
+  console.log(result)
 }
 
 $(".project-btn").on('click', addProject)

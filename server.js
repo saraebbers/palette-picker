@@ -62,7 +62,7 @@ app.post('/api/v1/projects', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
   const palette = request.body;
 
-  for(let requiredParameter of ['name', 'color_zero', 'color_one', 'color_two', 'color_three', 'color_four']) {
+  for(let requiredParameter of ['name', 'project_id', 'color_zero', 'color_one', 'color_two', 'color_three', 'color_four']) {
     if(!palette[requiredParameter]) {
       return response
         .status(422)
