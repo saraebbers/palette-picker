@@ -38,15 +38,68 @@ const changeColor = () => {
   }
 }
 
+const getProjects = async() => {
+  const response = await fetch('/api/v1/projects')
+  const result = await response.json()
+  result.forEach(project => {
+    addProjectAsOption(project)
+    addProjectToPage(project)
+  })
+}
+
+const addProject = async() => {
+  event.preventDefault()
+  const name = document.querySelector('.project-name')
+  const response = await fetch('/api/v1/projects', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({ name: name.value })
+  })
+  const result = await response.json()
+  addProjectAsOption(result)
+  addProjectToPage(result)
+  name.value = ''
+}
+
+const addProjectToPage = (project) => {
+  const projects = document.querySelector('.projects-container')
+  projects.insertAdjacentHTML('beforeend', `<div class="project-div"><p id="${project.id}">${project.name}<i class="far fa-trash-alt project-trash"></i></p><div>associated palettes here</div></div>`
+    )
+}
+
+const addProjectAsOption = (project) => {
+  const selection = document.querySelector(".project-select")
+  selection.insertAdjacentHTML('afterbegin', `<option value=${project.id}>${project.name}</option>`)
+}
+
+const deleteProject = async() => {
+  const project = document.querySelector('.projects-container')
+  let id = event.target.parentNode.id
+  event.target.parentNode.parentNode.remove()
+  const response = await fetch(`/api/v1/projects/${id}`, {
+    method: 'DELETE'
+  })
+  const result = await response.json()
+}
+
+const addPalette = () => {
+  event.preventDefault()
+  console.log('add Palette Called')
+}
+
+$(".project-btn").on('click', addProject)
+
+$(".projects-container").on('click', deleteProject)
+
+$(".palette-btn").on('click', addPalette)
+
 $(".save-btn").on('click', () => {
   console.log('save-btn clicked')
 })
 
 $(".update-btn").on('click', updateMultipleColors)
 
-$(".retrieve-btn").on('click', () => {
-  console.log('view saved Projects clicked')
-})
+$(".retrieve-btn").on('click', getProjects)
 
 $(".fas").on('click', toggleLock)
 
