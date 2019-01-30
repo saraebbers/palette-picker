@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-    - "node"
+- node
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: nuGy/FnECX+My2FruZUpxNmpxFhldBUFJ38Q2P4E+xaQOPzFasMO8zCwVk+6mduhr2Mx3fnwMQ9j3V/FRPi278TBYKOGpUg8yuinhscx2SF6x2t1uxmQftL01Xpat0Oo4Jpz8Isx8Z5Yc2S4DZzVfw+Pmnv7slPGd4ipDvirS9+0MaRbv+E0frVV2fOtpd3UxaJ1OYXVtOFaLjm4SSI18QaBaZmbwW3id8ymdKR3k49Iz33qpZ++w04A3WUSFyHjmgkyzvkd1xL2gHTWLIoRTPqgV1bAzTD4s6z/Lsby2wXvdqog/YJ/CmXtNe77r1mQuahPSz5CQIsVjF9q4rzSXeM0oHkPHRpbZgRYh3ngKnX2g1x54aZo+wwP4gzgVavd6hJS+Tdbbrf19bMe5USlGiHK//hZscrcngVz1Ux7y5jxwh/S16gvj7pYqSkl2z8hg53nkG1qJhmzJpxIgkaQVkfhWfKPP4mWyg6AqcjJIaBDkyzZoxJRMVcbVfQD2j7JY3dU3PBW37jD7i1PaJTKFYuM9qoEDnnH97L9qmT+Xa1QTZCxa8LbMSdvGCAnpsooAG6iiwQif7N7FhaHFAOpxwBNwS2l68ssZ4td/t335xKxsWeqk/MK87+fxNJOBVZj9QKgkelsL7PbO1YUDrxL8MYMoaIT0ZyEnCngAvTdUkw=
+  app: palette-picker-sle
+  skip_cleanup: true
